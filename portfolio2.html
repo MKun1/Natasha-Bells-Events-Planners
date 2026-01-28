@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio</title>
+  
+
+  <script>
+        // Redirect immediately if mobile
+        if (window.innerWidth <= 768) {
+            window.location.href = "portfolio2mobile.html";
+        }
+    </script>
+
+
+
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<link rel="icon" type="image/png" href="Images\Natasha Events Logo 2.jpg">
+
+<style>
+  :root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #e74c3c;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --gray-color: #6c757d;
+    --light-gray: #e9ecef;
+    
+    /* Light theme variables */
+    --bg-primary: radial-gradient(circle at center, #071428, #2980b9 60%, #3498db);
+    --bg-secondary: #fff;
+    --text-primary: #fff;
+    --text-secondary: #343a40;
+    --card-bg: #222;
+    --card-border: rgba(255,255,255,0.08);
+    --tooltip-bg: rgba(0, 0, 0, 0.9);
+    --footer-bg: #343a40;
+    --header-bg: #fff;
+    --nav-color: #343a40;
+    --nav-hover: #3498db;
+}
+
+[data-theme="dark"] {
+    --bg-primary: radial-gradient(circle at center, #0a0a0a, #1a1a1a 60%, #2d2d2d);
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --card-bg: #2d2d2d;
+    --card-border: rgba(255,255,255,0.15);
+    --tooltip-bg: rgba(45, 45, 45, 0.95);
+    --footer-bg: #0a0a0a;
+    --header-bg: #1a1a1a;
+    --nav-color: #e0e0e0;
+    --nav-hover: #3498db;
+}
+
+/* ─── BASIC PAGE LAYOUT ─── */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Stack header, scene, footer vertically */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+header {
+  width: 100%;
+  background: var(--header-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.logo h1 { color: var(--primary-color); font-size: 24px; margin: 0; }
+.logo p { color: var(--gray-color); font-size: 14px; margin: 0; }
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav ul li { margin-left: 20px; }
+nav ul li a { 
+  text-decoration: none; 
+  color: var(--nav-color); 
+  font-weight: 500; 
+  transition: color 0.3s ease; 
+}
+nav ul li a:hover { color: var(--nav-hover); }
+
+/* ─── SCENE / WHEEL AREA ─── */
+.scene {
+  width: 760px;
+  height: 420px;
+  margin: 30px 0;
+  position: relative;
+  perspective: 1200px;
+  perspective-origin: 50% 40%;
+}
+
+/* AXIS WRAPPERS */
+.axis {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.axis-inner { transform: translate(-50%, -50%) translateX(0px) translateY(0px) translateZ(-300px); }
+.axis-outer { transform: translate(-50%, -50%) translateX(0px) translateY(90px) translateZ(80px); }
+.axis-outer2 { transform: translate(-50%, -50%) translateX(0px) translateY(180px) translateZ(140px); }
+
+/* WHEELS */
+.wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  will-change: transform;
+}
+.inner-wheel { width: 200px; height: 200px; }
+.outer2-wheel { width: 400px; height: 400px; }
+
+/* SEGMENTS */
+.segment {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 120px;
+  margin-left: -50px;
+  margin-top: -60px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  color: var(--text-primary);
+  transform-origin: center center;
+  transition: transform 0.3s cubic-bezier(.2,.9,.2,1), box-shadow 0.3s, opacity 0.3s, background 0.3s ease, border 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.03);
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+.segment img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* HOVER EFFECTS */
+.segment:hover {
+  transform: translateZ(var(--radius)) rotateY(var(--angle)) scale(1.2) rotateX(6deg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  z-index: 50;
+}
+
+/* TOOLTIP */
+.tooltip {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: var(--tooltip-bg);
+  border-radius: 12px;
+  padding: 16px;
+  width: 250px;
+  max-width: 80%;
+  text-align: center;
+  color: var(--text-primary);
+  z-index: 999;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  border: 1px solid var(--card-border);
+}
+.tooltip.show {
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+.tooltip img { width: 100%; border-radius: 8px; margin-bottom: 8px; }
+.tooltip-title { margin: 8px 0 4px; font-size: 18px; }
+.tooltip-summary { font-size: 14px; margin-bottom: 8px; }
+.tooltip-link { color: var(--primary-color); text-decoration: underline; }
+.tooltip-close { 
+  position: absolute; 
+  top: 8px; 
+  right: 12px; 
+  cursor: pointer; 
+  font-size: 18px; 
+  color: var(--text-primary);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  width: 100%;
+  background: var(--footer-bg);
+  color: var(--text-primary);
+  padding: 50px 20px 20px;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.footer-section h3 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li { margin-bottom: 10px; }
+
+.footer-section ul li a {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-section ul li a:hover { color: #fff; }
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    margin-left: 20px;
+}
+
+#themeToggle {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--nav-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.toggle-text {
+    font-weight: 500;
+}
+
+/* Dark theme specific adjustments */
+[data-theme="dark"] .segment {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+[data-theme="dark"] .tooltip-link {
+    color: #4fc3f7;
+}
+
+[data-theme="dark"] .footer-section ul li a {
+    color: #bbb;
+}
+
+[data-theme="dark"] .footer-section ul li a:hover {
+    color: #fff;
+}
+
+/* GALLERY MODAL STYLES */
+.gallery-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.gallery-modal-content {
+  position: relative;
+  max-width: 95%;
+  max-height: 95%;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--card-border);
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.gallery-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.gallery-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.gallery-title {
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.gallery-counter {
+  color: #ccc;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.gallery-images {
+  max-height: 70vh;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.gallery-images img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gallery-prev,
+.gallery-next {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  min-width: 60px;
+}
+
+.gallery-prev:hover,
+.gallery-next:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.gallery-prev:active,
+.gallery-next:active {
+  transform: translateY(0);
+}
+
+/* Responsive design for gallery */
+@media screen and (max-width: 768px) {
+  .gallery-modal-content {
+    max-width: 98%;
+    max-height: 98%;
+    padding: 20px;
+  }
+  
+  .gallery-title {
+    font-size: 20px;
+  }
+  
+  .gallery-images img {
+    max-height: 55vh;
+  }
+  
+  .gallery-prev,
+  .gallery-next {
+    padding: 10px 20px;
+    min-width: 50px;
+    font-size: 18px;
+  }
+}
+
+/* ─── RESPONSIVE ADAPTATIONS ─── */
+/* (Keep all your existing responsive styles, they'll work with the theme variables) */
+</style>
+
+
+</head>
+<body>
+
+   <header>
+        <div class="container">
+            <div class="logo">
+                <h1>NatashaBells</h1>
+                <p>Premium Event Planners</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="AboutUs2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact</a></li>
+                    <li><a href=""><i class="fas fa-circle-info"></i> Learn More!</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span class="toggle-text">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+  <div class="scene">
+    <!-- Outer Wheels -->
+    <div class="axis axis-outer">
+      <div class="wheel outer-wheel"></div>
+    </div>
+    <div class="axis axis-inner">
+      <div class="wheel inner-wheel"></div>
+    </div>
+    <div class="axis axis-outer2">
+      <div class="wheel outer2-wheel"></div>
+    </div>
+  </div>
+
+  <!-- Tooltip for segments -->
+  <div class="tooltip">
+    <img src="" alt="Event Cover" class="tooltip-image" />
+    <h3 class="tooltip-title"></h3>
+    <p class="tooltip-summary"></p>
+    <a href="#" class="tooltip-link" target="_blank">View Full Event</a>
+    <span class="tooltip-close">&times;</span>
+  </div>
+
+  
+
+
+  <script>
+
+    // THEME TOGGLE FUNCTIONALITY
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+const themeText = themeToggle.querySelector('.toggle-text');
+
+// Check for saved theme or prefer-color-scheme
+function getPreferredTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+// Apply theme
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update toggle button
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+        themeText.textContent = 'Light Mode';
+        themeToggle.style.background = 'var(--primary-color)';
+        themeToggle.style.color = 'white';
+        themeToggle.style.borderColor = 'var(--primary-color)';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+        themeText.textContent = 'Dark Mode';
+        themeToggle.style.background = 'transparent';
+        themeToggle.style.color = 'var(--dark-color)';
+        themeToggle.style.borderColor = 'var(--primary-color)';
+    }
+}
+
+// Toggle theme
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+}
+
+// Initialize theme
+function initTheme() {
+    const preferredTheme = getPreferredTheme();
+    applyTheme(preferredTheme);
+}
+
+// Event listeners
+themeToggle.addEventListener('click', toggleTheme);
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
+// Initialize theme when page loads
+document.addEventListener('DOMContentLoaded', initTheme);
+
+// CONFIG: segment counts and radii
+const innerCount = 12, outerCount = 16, outer2Count = 20;
+const innerRadius = 300, outerRadius = 360, outer2Radius = 420;
+
+// DOM TARGETS
+const outerWheel = document.querySelector('.outer-wheel');
+const innerWheel = document.querySelector('.inner-wheel');
+const outer2Wheel = document.querySelector('.outer2-wheel');
+
+// YOUR EVENT DATA
+const yourEvents = [
+  // Weddings
+  {title:'Wedding | Vumba', summary:'Beautiful outdoor wedding ceremony in Vumba mountains', image:'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.27_d4216838.jpg', link:'#'},
+  {title:'Wedding & Reception | Mutare', summary:'Complete wedding ceremony and reception setup', image:'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0101.jpg', link:'#'},
+  {title:'Wedding | Murambi', summary:'Elegant wedding celebration in Murambi', image:'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0116.jpg', link:'#'},
+  {title:'Mini Wedding', summary:'Intimate wedding celebration', image:'Images/Events/Mini Wedding/IMG-20250304-WA0041.jpg', link:'#'},
+  
+  // Roora Events
+  {title:'Roora Dinner | Chikanga', summary:'Traditional Roora dinner celebration', image:'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.41_3dd9074b.jpg', link:'#'},
+  {title:'Roora Decor | Zimunya', summary:'Traditional decor setup for Roora ceremony', image:'Images/Events/Roora Decor Zimunya/WhatsApp Image 2024-03-06 at 13.56.55_08a2adfa.jpg', link:'#'},
+  {title:'Roora | Dangamvura', summary:'Traditional ceremony in Dangamvura', image:'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0112.jpg', link:'#'},
+  {title:'Roora | Mutasa DC', summary:'Traditional celebration at Mutasa District', image:'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.38.25_6c5d32ca.jpg', link:'#'},
+  {title:'Roora | Marange', summary:'Traditional ceremony in Marange', image:'Images/Events/Roora Day Marange/IMG-20250304-WA0037.jpg', link:'#'},
+  {title:'Shuffle | Mutare', summary:'Events around Mutare', image:'Images/new/WhatsApp Image 2025-11-25 at 9.00.52 AM.jpeg', link:'#'},
+  
+  // Setup & Decor
+  {title:'Rustic Cabana Setup', summary:'Charming rustic cabana decoration in Mutare', image:'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0121.jpg', link:'#'},
+  {title:'Cabana Setup | Zimunya', summary:'Beautiful cabana decoration in Zimunya', image:'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0077.jpg', link:'#'},
+  {title:'Cabana Setup | Dangamvura', summary:'Beautiful cabana decoration', image:'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_b6bfb3cd.jpg', link:'#'},
+  
+  // Birthday & Other Events
+  {title:'Birthday Party Setup', summary:'Colorful birthday celebration setup', image:'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.26_886e93e7.jpg', link:'#'},
+  {title:'Birthday Party | Old Mutare', summary:'Fun birthday celebration in Old Mutare', image:'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0126.jpg', link:'#'},
+  {title:'Mini Graduation', summary:'Graduation celebration setup', image:'Images/Events/Mini Graduation Setup/WhatsApp Image 2025-03-04 at 13.42.33_e0a75a63.jpg', link:'#'},
+  
+  // Additional Roora Events
+  {title:'Roora Celebration 2', summary:'Traditional Roora ceremony setup', image:'Images/Events/Roora day 2/IMG-20250304-WA0084.jpg', link:'#'},
+  {title:'Roora Celebration 3', summary:'Traditional ceremony decoration', image:'Images/Events/Roora Day 3/WhatsApp Image 2025-03-04 at 14.07.14_894347fe.jpg', link:'#'},
+  {title:'Roora Celebration 4', summary:'Traditional ceremony setup', image:'Images/Events/Roora Day 4/IMG-20250304-WA0092.jpg', link:'#'},
+  {title:'Roora Celebration 5', summary:'Traditional Roora ceremony', image:'Images/Events/Roora Day 5/IMG-20250304-WA0097.jpg', link:'#'}
+];
+
+// EVENT GALLERIES DATA - All images for each event
+const eventGalleries = {
+  'Wedding | Vumba': [
+    'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.26_b8c87435.jpg',
+    'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.16_a7f98102.jpg',
+    'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.27_d4216838.jpg'
+  ],
+  'Wedding & Reception | Mutare': [
+    'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0101.jpg',
+    'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0102.jpg',
+    'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0103.jpg',
+    'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0104.jpg',
+    'Images/Events/Wedding and Reception Mutare/WhatsApp Image 2025-03-04 at 14.09.32_2a919913.jpg'
+  ],
+  'Rustic Cabana Setup': [
+    'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0121.jpg',
+    'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0122.jpg',
+    'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0123.jpg'
+  ],
+  'Wedding | Murambi': [
+    'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0115.jpg',
+    'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0116.jpg',
+    'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0117.jpg',
+    'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0118.jpg',
+    'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0119.jpg'
+  ],
+  'Roora Dinner | Chikanga': [
+    'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.39_887d2aac.jpg',
+    'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.40_48c1cf5c.jpg',
+    'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.40_f15e7445.jpg',
+    'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.41_3dd9074b.jpg'
+  ],
+  'Roora Decor | Zimunya': [
+    'Images/Events/Roora Decor Zimunya/WhatsApp Image 2024-03-06 at 13.56.55_08a2adfa.jpg'
+  ],
+  'Roora | Mutare': [
+    'Images/Events/Roora Day Mutare/WhatsApp Image 2025-03-04 at 13.41.39_eba2fd85.jpg',
+    'Images/Events/Roora Day Mutare/WhatsApp Image 2025-03-04 at 13.41.40_3896f320.jpg',
+    'Images/Events/Roora Day Mutare/WhatsApp Image 2025-03-04 at 13.41.40_67434ed1.jpg'
+  ],
+  'Roora | Marange': [
+    'Images/Events/Roora Day Marange/IMG-20250304-WA0034.jpg',
+    'Images/Events/Roora Day Marange/IMG-20250304-WA0035.jpg',
+    'Images/Events/Roora Day Marange/IMG-20250304-WA0036.jpg',
+    'Images/Events/Roora Day Marange/IMG-20250304-WA0037.jpg',
+    'Images/Events/Roora Day Marange/IMG-20250304-WA0038.jpg'
+  ],
+  'Roora | Dangamvura': [
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0106.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0107.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0108.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0109.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0110.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0111.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0112.jpg',
+    'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0113.jpg',
+    'Images/Events/Roora Day Dangamvura/WhatsApp Image 2025-03-04 at 14.10.16_0a37c115.jpg'
+  ],
+
+  'Shuffle | Mutare': [
+    'Images/new/WhatsApp Image 2025-11-25 at 8.59.42 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 8.59.53 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.47 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.48 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.49 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.49 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.50 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.50 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM (2).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.52 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.52 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.53 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.54 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.54 AM.jpeg'
+  ],
+
+
+  'Roora | Mutasa DC': [
+    'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.37.36_9f52e2ab.jpg',
+    'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.37.59_d1f0a68f.jpg',
+    'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.38.25_6c5d32ca.jpg'
+  ],
+  'Mini Wedding': [
+    'Images/Events/Mini Wedding/IMG-20250304-WA0039.jpg',
+    'Images/Events/Mini Wedding/IMG-20250304-WA0040.jpg',
+    'Images/Events/Mini Wedding/IMG-20250304-WA0041.jpg',
+    'Images/Events/Mini Wedding/IMG-20250304-WA0042.jpg'
+  ],
+  'Birthday Party Setup': [
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.26_886e93e7.jpg',
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.33_7029e30a.jpg',
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.44_71f8ac5b.jpg',
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.51_5716f057.jpg',
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.52_27195965.jpg',
+    'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.53_4f174ac3.jpg'
+  ],
+  'Cabana Setup | Zimunya': [
+    'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0073.jpg',
+    'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0074.jpg',
+    'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0075.jpg',
+    'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0076.jpg',
+    'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0077.jpg',
+    'Images/Events/Cabana Setup Zimunya/WhatsApp Image 2025-03-04 at 14.03.05_e7879db5.jpg'
+  ],
+  'Cabana Setup | Dangamvura': [
+    'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_5abb82e0.jpg',
+    'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_b6bfb3cd.jpg',
+    'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.51_033f65aa.jpg',
+    'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.51_0543a66a.jpg'
+  ],
+  'Birthday Party | Old Mutare': [
+    'Images/Events/Birthday Party Old Mutare/IMG-20250303-WA0130.jpg',
+    'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0126.jpg',
+    'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0127.jpg',
+    'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0128.jpg',
+    'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0129.jpg',
+    'Images/Events/Birthday Party Old Mutare/WhatsApp Image 2025-03-04 at 14.26.36_e47466c4.jpg'
+  ],
+  'Mini Graduation': [
+    'Images/Events/Mini Graduation Setup/WhatsApp Image 2025-03-04 at 13.42.33_e0a75a63.jpg'
+  ]
+};
+
+// FUNCTION TO BUILD WHEEL
+function buildWheel(wheelEl, count, radius, labelPrefix='S') {
+  for(let i=0;i<count;i++){
+    const seg = document.createElement('div');
+    seg.className = 'segment';
+    const angle = (360/count) * i;
+    seg.style.setProperty('--angle', angle+'deg');
+    seg.style.setProperty('--radius', radius+'px');
+
+    // Assign your event data
+    const eventData = yourEvents[i % yourEvents.length];
+    seg.dataset.title = eventData.title;
+    seg.dataset.summary = eventData.summary;
+    seg.dataset.image = eventData.image;
+    seg.dataset.link = eventData.link;
+
+    // Segment image
+    const img = document.createElement('img');
+    img.src = eventData.image;
+    img.alt = eventData.title;
+    seg.appendChild(img);
+
+    seg.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+    wheelEl.appendChild(seg);
+  }
+}
+
+// BUILD ALL WHEELS
+buildWheel(outerWheel, outerCount, outerRadius, 'Outer');
+buildWheel(innerWheel, innerCount, innerRadius, 'Inner');
+buildWheel(outer2Wheel, outer2Count, outer2Radius, 'Outer2');
+
+// GSAP ROTATION
+const outerAnim = gsap.to(outerWheel,{rotationY:360,duration:28,ease:"none",repeat:-1,transformOrigin:"50% 50% 0px"});
+const innerAnim = gsap.to(innerWheel,{rotationY:-360,duration:18,ease:"none",repeat:-1,transformOrigin:"50% 50% 0px"});
+const outer2Anim = gsap.to(outer2Wheel,{rotationY:-360,duration:50,ease:"none",repeat:-1,transformOrigin:"50% 50% 0px"});
+
+// HOVER PAUSE
+function hoverPause(wheel, anim){ 
+  wheel.addEventListener('mouseenter', ()=>gsap.to(anim,{timeScale:0,duration:0.6,ease:'power2.out'}));
+  wheel.addEventListener('mouseleave', ()=>gsap.to(anim,{timeScale:1,duration:1.0,ease:'power3.inOut'}));
+}
+hoverPause(outerWheel, outerAnim);
+hoverPause(innerWheel, innerAnim);
+hoverPause(outer2Wheel, outer2Anim);
+
+// TOOLTIP
+const tooltip = document.querySelector('.tooltip');
+const ttImage = tooltip.querySelector('.tooltip-image');
+const ttTitle = tooltip.querySelector('.tooltip-title');
+const ttSummary = tooltip.querySelector('.tooltip-summary');
+const ttLink = tooltip.querySelector('.tooltip-link');
+const ttClose = tooltip.querySelector('.tooltip-close');
+
+function showTooltip(seg){
+  ttImage.src = seg.dataset.image;
+  ttTitle.textContent = seg.dataset.title;
+  ttSummary.textContent = seg.dataset.summary;
+  
+  // Update the link to open gallery instead of external link
+  ttLink.href = '#';
+  ttLink.textContent = 'View Event Gallery';
+  ttLink.onclick = (e) => {
+    e.preventDefault();
+    closeTooltip();
+    openGallery(seg.dataset.title);
+  };
+  
+  tooltip.classList.add('show');
+  gsap.to(tooltip,{opacity:1,duration:0.3});
+}
+
+function closeTooltip(){
+  tooltip.classList.remove('show');
+  gsap.to(tooltip,{opacity:0,duration:0.2});
+}
+
+// EVENT GALLERY MODAL
+const galleryModal = document.createElement('div');
+galleryModal.className = 'gallery-modal';
+galleryModal.innerHTML = `
+  <div class="gallery-modal-content">
+    <span class="gallery-close">&times;</span>
+    <h3 class="gallery-title"></h3>
+    <div class="gallery-counter"></div>
+    <div class="gallery-images"></div>
+    <div class="gallery-nav">
+      <button class="gallery-prev">‹</button>
+      <button class="gallery-next">›</button>
+    </div>
+  </div>
+`;
+document.body.appendChild(galleryModal);
+
+let currentGalleryIndex = 0;
+let currentGalleryImages = [];
+
+function openGallery(eventTitle) {
+  const images = eventGalleries[eventTitle] || [];
+  if (images.length === 0) {
+    alert('No additional images available for this event');
+    return;
+  }
+
+  currentGalleryImages = images;
+  currentGalleryIndex = 0;
+  
+  const galleryTitle = galleryModal.querySelector('.gallery-title');
+  const galleryImages = galleryModal.querySelector('.gallery-images');
+  const galleryCounter = galleryModal.querySelector('.gallery-counter');
+  
+  galleryTitle.textContent = eventTitle;
+  galleryImages.innerHTML = '';
+  galleryCounter.textContent = `1 / ${images.length}`;
+  
+  // Create image elements
+  images.forEach((src, index) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = `${eventTitle} - Image ${index + 1}`;
+    img.style.display = index === 0 ? 'block' : 'none';
+    galleryImages.appendChild(img);
+  });
+  
+  galleryModal.classList.add('show');
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  updateGalleryNav();
+}
+
+function closeGallery() {
+  galleryModal.classList.remove('show');
+  document.body.style.overflow = ''; // Re-enable scrolling
+  currentGalleryImages = [];
+  currentGalleryIndex = 0;
+}
+
+function nextImage() {
+  if (currentGalleryImages.length === 0) return;
+  currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+  showCurrentImage();
+}
+
+function prevImage() {
+  if (currentGalleryImages.length === 0) return;
+  currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+  showCurrentImage();
+}
+
+function showCurrentImage() {
+  const images = galleryModal.querySelectorAll('.gallery-images img');
+  const galleryCounter = galleryModal.querySelector('.gallery-counter');
+  
+  images.forEach((img, index) => {
+    img.style.display = index === currentGalleryIndex ? 'block' : 'none';
+  });
+  
+  galleryCounter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+  updateGalleryNav();
+}
+
+function updateGalleryNav() {
+  const prevBtn = galleryModal.querySelector('.gallery-prev');
+  const nextBtn = galleryModal.querySelector('.gallery-next');
+  
+  if (currentGalleryImages.length <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'block';
+    nextBtn.style.display = 'block';
+  }
+}
+
+// Event listeners for gallery
+galleryModal.querySelector('.gallery-close').addEventListener('click', closeGallery);
+galleryModal.querySelector('.gallery-prev').addEventListener('click', prevImage);
+galleryModal.querySelector('.gallery-next').addEventListener('click', nextImage);
+
+// Close modal when clicking outside
+galleryModal.addEventListener('click', (e) => {
+  if (e.target === galleryModal) {
+    closeGallery();
+  }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (galleryModal.classList.contains('show')) {
+    if (e.key === 'ArrowLeft') {
+      prevImage();
+    } else if (e.key === 'ArrowRight') {
+      nextImage();
+    } else if (e.key === 'Escape') {
+      closeGallery();
+    }
+  }
+});
+
+// SEGMENT CLICK EVENT
+document.querySelectorAll('.segment').forEach(seg=>{
+  seg.addEventListener('click', e=>{
+    showTooltip(seg);
+    e.stopPropagation();
+  });
+});
+
+// CLOSE TOOLTIP
+ttClose.addEventListener('click', closeTooltip);
+document.body.addEventListener('click', hideTooltip);
+
+function hideTooltip(){
+  tooltip.classList.remove('show');
+  gsap.to(tooltip,{opacity:0,duration:0.2});
+}
+
+
+  </script>
+</body>
+</html>

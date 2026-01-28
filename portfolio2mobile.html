@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Portfolio - NatashaBells</title>
+  <link rel="icon" type="image/png" href="Images\Natasha Events Logo 2.jpg">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<style>
+  :root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #e74c3c;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --gray-color: #6c757d;
+    --light-gray: #e9ecef;
+    
+    /* Light theme variables */
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #fff;
+    --text-primary: #343a40;
+    --text-secondary: #6c757d;
+    --card-bg: #fff;
+    --card-border: #e9ecef;
+    --header-bg: #fff;
+    --nav-color: #343a40;
+    --nav-hover: #3498db;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --card-bg: #2d2d2d;
+    --card-border: #404040;
+    --header-bg: #1a1a1a;
+    --nav-color: #e0e0e0;
+    --nav-hover: #3498db;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    width: 100%;
+    background: var(--header-bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo h1 { 
+    color: var(--primary-color); 
+    font-size: 20px; 
+    margin: 0; 
+}
+.logo p { 
+    color: var(--gray-color); 
+    font-size: 12px; 
+    margin: 0; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+nav ul li { 
+    margin: 0; 
+}
+nav ul li a { 
+    text-decoration: none; 
+    color: var(--nav-color); 
+    font-weight: 500; 
+    font-size: 14px;
+    transition: color 0.3s ease; 
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+nav ul li a:hover,
+nav ul li a.active { 
+    color: var(--nav-hover); 
+    background: rgba(52, 152, 219, 0.1);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    margin-left: 15px;
+}
+
+#themeToggle {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--nav-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+    transform: translateY(-1px);
+}
+
+/* Mobile Portfolio */
+.mobile-portfolio {
+    padding: 20px;
+    max-width: 100%;
+    overflow-x: hidden;
+    min-height: calc(100vh - 80px);
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.portfolio-header h2 {
+    color: var(--text-primary);
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.portfolio-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.event-category {
+    margin-bottom: 35px;
+}
+
+.category-title {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mobile-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 5px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.mobile-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.mobile-card {
+    min-width: 280px;
+    scroll-snap-align: start;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.mobile-card:active {
+    transform: scale(0.98);
+}
+
+.mobile-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h4 {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.card-content p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.view-gallery-btn {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.view-gallery-btn:active {
+    background: var(--secondary-color);
+    transform: scale(0.95);
+}
+
+/* Gallery Modal */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.gallery-modal-content {
+    position: relative;
+    width: 95%;
+    max-height: 90%;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--card-border);
+}
+
+.gallery-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.gallery-close:active {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.gallery-title {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.gallery-counter {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.gallery-images {
+    max-height: 60vh;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.gallery-images img {
+    max-width: 100%;
+    max-height: 55vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.gallery-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery-prev,
+.gallery-next {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 50px;
+}
+
+.gallery-prev:active,
+.gallery-next:active {
+    background: var(--secondary-color);
+    transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+    header .container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+    
+    nav ul {
+        justify-content: center;
+    }
+    
+    .logo h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    .mobile-portfolio {
+        padding: 15px;
+    }
+    
+    .portfolio-header h2 {
+        font-size: 22px;
+    }
+    
+    .category-title {
+        font-size: 18px;
+    }
+    
+    .mobile-card {
+        min-width: 260px;
+    }
+    
+    .mobile-card img {
+        height: 160px;
+    }
+    
+    .card-content {
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .mobile-card {
+        min-width: 240px;
+    }
+    
+    .mobile-card img {
+        height: 140px;
+    }
+    
+    nav ul li a {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .mobile-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .mobile-card img {
+    background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+}
+</style>
+
+
+
+</head>
+<body>
+
+   <header>
+        <div class="container">
+            <div class="logo">
+                <h1>NatashaBells</h1>
+                <p>Premium Event Planners</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="mobile-portfolio.html" class="active">Portfolio</a></li>
+                    <li><a href="AboutUs2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact</a></li>
+                    <li><a href="help.html"><i class="fas fa-circle-info"></i> Learn More!</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span class="toggle-text">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+  <!-- Mobile Portfolio -->
+  <div class="mobile-portfolio">
+    <div class="portfolio-header">
+      <h2>Our Events Portfolio</h2>
+      <p>Swipe through our categories to explore our work</p>
+    </div>
+
+    <!-- Weddings Category -->
+    <div class="event-category">
+      <h3 class="category-title">💍 Wedding Events</h3>
+      <div class="mobile-carousel" data-category="wedding">
+        <div class="mobile-card" data-event="Wedding | Vumba">
+          <img src="Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.27_d4216838.jpg" alt="Wedding in Vumba" loading="lazy">
+          <div class="card-content">
+            <h4>Wedding | Vumba</h4>
+            <p>Beautiful outdoor wedding ceremony in Vumba mountains</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Wedding & Reception | Mutare">
+          <img src="Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0101.jpg" alt="Wedding Reception Mutare" loading="lazy">
+          <div class="card-content">
+            <h4>Wedding & Reception | Mutare</h4>
+            <p>Complete wedding ceremony and reception setup</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Wedding | Murambi">
+          <img src="Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0116.jpg" alt="Wedding Murambi" loading="lazy">
+          <div class="card-content">
+            <h4>Wedding | Murambi</h4>
+            <p>Elegant wedding celebration in Murambi</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Mini Wedding">
+          <img src="Images/Events/Mini Wedding/IMG-20250304-WA0041.jpg" alt="Mini Wedding" loading="lazy">
+          <div class="card-content">
+            <h4>Mini Wedding</h4>
+            <p>Intimate wedding celebration</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roora Events Category -->
+    <div class="event-category">
+      <h3 class="category-title">🎊 Roora Ceremonies</h3>
+      <div class="mobile-carousel" data-category="roora">
+        <div class="mobile-card" data-event="Roora Dinner | Chikanga">
+          <img src="Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.41_3dd9074b.jpg" alt="Roora Dinner Chikanga" loading="lazy">
+          <div class="card-content">
+            <h4>Roora Dinner | Chikanga</h4>
+            <p>Traditional Roora dinner celebration</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Roora | Dangamvura">
+          <img src="Images/Events/Roora Day Dangamvura/IMG-20250304-WA0112.jpg" alt="Roora Dangamvura" loading="lazy">
+          <div class="card-content">
+            <h4>Roora | Dangamvura</h4>
+            <p>Traditional ceremony in Dangamvura</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Roora | Mutasa DC">
+          <img src="Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.38.25_6c5d32ca.jpg" alt="Roora Mutasa DC" loading="lazy">
+          <div class="card-content">
+            <h4>Roora | Mutasa DC</h4>
+            <p>Traditional celebration at Mutasa District</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Roora | Marange">
+          <img src="Images/Events/Roora Day Marange/IMG-20250304-WA0037.jpg" alt="Roora Marange" loading="lazy">
+          <div class="card-content">
+            <h4>Roora | Marange</h4>
+            <p>Traditional ceremony in Marange</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup & Decor Category -->
+    <div class="event-category">
+      <h3 class="category-title">🎨 Setup & Decor</h3>
+      <div class="mobile-carousel" data-category="setup">
+        <div class="mobile-card" data-event="Rustic Cabana Setup">
+          <img src="Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0121.jpg" alt="Rustic Cabana Setup" loading="lazy">
+          <div class="card-content">
+            <h4>Rustic Cabana Setup</h4>
+            <p>Charming rustic cabana decoration in Mutare</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Cabana Setup | Zimunya">
+          <img src="Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0077.jpg" alt="Cabana Setup Zimunya" loading="lazy">
+          <div class="card-content">
+            <h4>Cabana Setup | Zimunya</h4>
+            <p>Beautiful cabana decoration in Zimunya</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Cabana Setup | Dangamvura">
+          <img src="Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_b6bfb3cd.jpg" alt="Cabana Setup Dangamvura" loading="lazy">
+          <div class="card-content">
+            <h4>Cabana Setup | Dangamvura</h4>
+            <p>Beautiful cabana decoration</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Birthday & Celebrations Category -->
+    <div class="event-category">
+      <h3 class="category-title">Best Picks</h3>
+      <div class="mobile-carousel" data-category="🖤 Best Picks">
+         <div class="mobile-card" data-event="Best Picks">
+                <img src="Images/new/WhatsApp Image 2025-11-25 at 9.00.50 AM (1).jpeg" alt="Editors Picks" loading="lazy">
+          <div class="card-content">
+            <h4>Editor's Picks </h4>
+            <p>Events in Mutare</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Birthday & Celebrations Category -->
+    <div class="event-category">
+      <h3 class="category-title">🎂 Birthday & Celebrations</h3>
+      <div class="mobile-carousel" data-category="birthday">
+        <div class="mobile-card" data-event="Birthday Party Setup">
+          <img src="Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.26_886e93e7.jpg" alt="Birthday Party Setup" loading="lazy">
+          <div class="card-content">
+            <h4>Birthday Party Setup</h4>
+            <p>Colorful birthday celebration setup</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Birthday Party | Old Mutare">
+          <img src="Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0126.jpg" alt="Birthday Party Old Mutare" loading="lazy">
+          <div class="card-content">
+            <h4>Birthday Party | Old Mutare</h4>
+            <p>Fun birthday celebration in Old Mutare</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+        
+        <div class="mobile-card" data-event="Mini Graduation">
+          <img src="Images/Events/Mini Graduation Setup/WhatsApp Image 2025-03-04 at 13.42.33_e0a75a63.jpg" alt="Mini Graduation" loading="lazy">
+          <div class="card-content">
+            <h4>Mini Graduation</h4>
+            <p>Graduation celebration setup</p>
+            <span class="view-gallery-btn">View Gallery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Gallery Modal -->
+  <div class="gallery-modal">
+    <div class="gallery-modal-content">
+      <span class="gallery-close">&times;</span>
+      <h3 class="gallery-title"></h3>
+      <div class="gallery-counter"></div>
+      <div class="gallery-images"></div>
+      <div class="gallery-nav">
+        <button class="gallery-prev">‹</button>
+        <button class="gallery-next">›</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+
+// Event Galleries Data
+const eventGalleries = {
+    'Wedding | Vumba': [
+        'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.26_b8c87435.jpg',
+        'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.16_a7f98102.jpg',
+        'Images/Events/Wedding in Vumba/WhatsApp Image 2025-03-04 at 14.02.27_d4216838.jpg'
+    ],
+    'Wedding & Reception | Mutare': [
+        'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0101.jpg',
+        'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0102.jpg',
+        'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0103.jpg',
+        'Images/Events/Wedding and Reception Mutare/IMG-20250304-WA0104.jpg',
+        'Images/Events/Wedding and Reception Mutare/WhatsApp Image 2025-03-04 at 14.09.32_2a919913.jpg'
+    ],
+    'Rustic Cabana Setup': [
+        'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0121.jpg',
+        'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0122.jpg',
+        'Images/Events/Rustic Cabana Setup Mutare/IMG-20250304-WA0123.jpg'
+    ],
+    'Wedding | Murambi': [
+        'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0115.jpg',
+        'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0116.jpg',
+        'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0117.jpg',
+        'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0118.jpg',
+        'Images/Events/Wedding Murambi Mutare/IMG-20250304-WA0119.jpg'
+    ],
+    'Roora Dinner | Chikanga': [
+        'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.39_887d2aac.jpg',
+        'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.40_48c1cf5c.jpg',
+        'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.40_f15e7445.jpg',
+        'Images/Events/Roora Dinner Chikanga/WhatsApp Image 2025-03-04 at 13.38.41_3dd9074b.jpg'
+    ],
+    'Roora | Dangamvura': [
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0106.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0107.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0108.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0109.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0110.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0111.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0112.jpg',
+        'Images/Events/Roora Day Dangamvura/IMG-20250304-WA0113.jpg',
+        'Images/Events/Roora Day Dangamvura/WhatsApp Image 2025-03-04 at 14.10.16_0a37c115.jpg'
+    ],
+    'Roora | Mutasa DC': [
+        'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.37.36_9f52e2ab.jpg',
+        'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.37.59_d1f0a68f.jpg',
+        'Images/Events/Mutasa DC/WhatsApp Image 2025-03-04 at 13.38.25_6c5d32ca.jpg'
+    ],
+    'Roora | Marange': [
+        'Images/Events/Roora Day Marange/IMG-20250304-WA0037.jpg'
+        // Add more images for this event if available
+    ],
+    'Mini Wedding': [
+        'Images/Events/Mini Wedding/IMG-20250304-WA0039.jpg',
+        'Images/Events/Mini Wedding/IMG-20250304-WA0040.jpg',
+        'Images/Events/Mini Wedding/IMG-20250304-WA0041.jpg',
+        'Images/Events/Mini Wedding/IMG-20250304-WA0042.jpg'
+    ],
+    'Birthday Party Setup': [
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.26_886e93e7.jpg',
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.33_7029e30a.jpg',
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.44_71f8ac5b.jpg',
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.51_5716f057.jpg',
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.52_27195965.jpg',
+        'Images/Events/Birthday Setup/WhatsApp Image 2025-03-04 at 13.40.53_4f174ac3.jpg'
+    ],
+    'Cabana Setup | Zimunya': [
+        'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0073.jpg',
+        'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0074.jpg',
+        'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0075.jpg',
+        'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0076.jpg',
+        'Images/Events/Cabana Setup Zimunya/IMG-20250304-WA0077.jpg',
+        'Images/Events/Cabana Setup Zimunya/WhatsApp Image 2025-03-04 at 14.03.05_e7879db5.jpg'
+    ],
+    'Cabana Setup | Dangamvura': [
+        'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_5abb82e0.jpg',
+        'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.50_b6bfb3cd.jpg',
+        'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.51_033f65aa.jpg',
+        'Images/Events/Cabana Setup Dangamvura/WhatsApp Image 2025-03-04 at 13.42.51_0543a66a.jpg'
+    ],
+    'Birthday Party | Old Mutare': [
+        'Images/Events/Birthday Party Old Mutare/IMG-20250303-WA0130.jpg',
+        'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0126.jpg',
+        'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0127.jpg',
+        'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0128.jpg',
+        'Images/Events/Birthday Party Old Mutare/IMG-20250304-WA0129.jpg',
+        'Images/Events/Birthday Party Old Mutare/WhatsApp Image 2025-03-04 at 14.26.36_e47466c4.jpg'
+    ],
+
+    'Best Picks': [
+    'Images/new/WhatsApp Image 2025-11-25 at 8.59.42 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 8.59.53 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.47 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.48 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.49 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.49 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.50 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.50 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM (2).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.51 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.52 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.52 AM.jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.53 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.54 AM (1).jpeg',
+    'Images/new/WhatsApp Image 2025-11-25 at 9.00.54 AM.jpeg'
+    ],
+
+    'Mini Graduation': [
+        'Images/Events/Mini Graduation Setup/WhatsApp Image 2025-03-04 at 13.42.33_e0a75a63.jpg'
+    ]
+};
+
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+const themeText = themeToggle.querySelector('.toggle-text');
+
+function getPreferredTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+        themeText.textContent = 'Light Mode';
+        themeToggle.style.background = 'var(--primary-color)';
+        themeToggle.style.color = 'white';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+        themeText.textContent = 'Dark Mode';
+        themeToggle.style.background = 'transparent';
+        themeToggle.style.color = 'var(--dark-color)';
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+}
+
+// Gallery Functionality
+let currentGalleryIndex = 0;
+let currentGalleryImages = [];
+
+function openGallery(eventTitle) {
+    const images = eventGalleries[eventTitle] || [];
+    if (images.length === 0) {
+        alert('No additional images available for this event');
+        return;
+    }
+
+    currentGalleryImages = images;
+    currentGalleryIndex = 0;
+    
+    const galleryModal = document.querySelector('.gallery-modal');
+    const galleryTitle = galleryModal.querySelector('.gallery-title');
+    const galleryImages = galleryModal.querySelector('.gallery-images');
+    const galleryCounter = galleryModal.querySelector('.gallery-counter');
+    
+    galleryTitle.textContent = eventTitle;
+    galleryImages.innerHTML = '';
+    galleryCounter.textContent = `1 / ${images.length}`;
+    
+    // Create image elements
+    images.forEach((src, index) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `${eventTitle} - Image ${index + 1}`;
+        img.style.display = index === 0 ? 'block' : 'none';
+        img.loading = 'lazy';
+        galleryImages.appendChild(img);
+    });
+    
+    galleryModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    updateGalleryNav();
+}
+
+function closeGallery() {
+    const galleryModal = document.querySelector('.gallery-modal');
+    galleryModal.classList.remove('show');
+    document.body.style.overflow = '';
+    currentGalleryImages = [];
+    currentGalleryIndex = 0;
+}
+
+function nextImage() {
+    if (currentGalleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+    showCurrentImage();
+}
+
+function prevImage() {
+    if (currentGalleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+    showCurrentImage();
+}
+
+function showCurrentImage() {
+    const images = document.querySelectorAll('.gallery-images img');
+    const galleryCounter = document.querySelector('.gallery-counter');
+    
+    images.forEach((img, index) => {
+        img.style.display = index === currentGalleryIndex ? 'block' : 'none';
+    });
+    
+    galleryCounter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+    updateGalleryNav();
+}
+
+function updateGalleryNav() {
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    
+    if (currentGalleryImages.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
+}
+
+// Mobile Carousel Functionality
+function initMobileCarousels() {
+    const carousels = document.querySelectorAll('.mobile-carousel');
+    
+    carousels.forEach(carousel => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        // Mouse events
+        carousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Touch events
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+        
+        carousel.addEventListener('touchmove', (e) => {
+            if (!e.touches[0]) return;
+            const x = e.touches[0].pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        // Add click prevention during drag
+        carousel.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+    });
+}
+
+// Add loading states for better UX
+function showLoadingState(card) {
+    const viewBtn = card.querySelector('.view-gallery-btn');
+    const originalText = viewBtn.textContent;
+    viewBtn.textContent = 'Loading...';
+    viewBtn.style.opacity = '0.7';
+    
+    return function() {
+        viewBtn.textContent = originalText;
+        viewBtn.style.opacity = '1';
+    };
+}
+
+// Store original openGallery function before modification
+const originalOpenGallery = openGallery;
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Apply preferred theme on load
+    const preferredTheme = getPreferredTheme();
+    applyTheme(preferredTheme);
+    
+    // Initialize mobile carousels
+    initMobileCarousels();
+    
+    // Add event listeners to gallery buttons
+    document.querySelectorAll('.view-gallery-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const card = this.closest('.mobile-card');
+            const eventTitle = card.getAttribute('data-event');
+            
+            // Show loading state
+            const resetLoading = showLoadingState(card);
+            
+            // Simulate loading delay for better UX
+            setTimeout(() => {
+                originalOpenGallery(eventTitle);
+                resetLoading();
+            }, 300);
+        });
+    });
+    
+    // Add click event to entire card for better UX
+    document.querySelectorAll('.mobile-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const eventTitle = this.getAttribute('data-event');
+            
+            // Show loading state
+            const resetLoading = showLoadingState(card);
+            
+            // Simulate loading delay for better UX
+            setTimeout(() => {
+                originalOpenGallery(eventTitle);
+                resetLoading();
+            }, 300);
+        });
+    });
+    
+    // Gallery modal event listeners
+    document.querySelector('.gallery-close').addEventListener('click', closeGallery);
+    document.querySelector('.gallery-prev').addEventListener('click', prevImage);
+    document.querySelector('.gallery-next').addEventListener('click', nextImage);
+    
+    // Close gallery when clicking outside content
+    document.querySelector('.gallery-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeGallery();
+        }
+    });
+    
+    // Theme toggle event listener
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Keyboard navigation for gallery
+    document.addEventListener('keydown', function(e) {
+        const galleryModal = document.querySelector('.gallery-modal');
+        if (!galleryModal.classList.contains('show')) return;
+        
+        switch(e.key) {
+            case 'Escape':
+                closeGallery();
+                break;
+            case 'ArrowLeft':
+                prevImage();
+                break;
+            case 'ArrowRight':
+                nextImage();
+                break;
+        }
+    });
+    
+    // Add swipe support for gallery on mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const galleryImages = document.querySelector('.gallery-images');
+    
+    if (galleryImages) {
+        galleryImages.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        galleryImages.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+    }
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next image
+                nextImage();
+            } else {
+                // Swipe right - previous image
+                prevImage();
+            }
+        }
+    }
+
+    // Add error handling for images
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            this.alt = 'Image failed to load';
+            this.style.backgroundColor = '#f0f0f0';
+            this.style.display = 'flex';
+            this.style.alignItems = 'center';
+            this.style.justifyContent = 'center';
+            this.style.color = '#666';
+            this.style.fontSize = '14px';
+            this.innerHTML = 'Image Not Available';
+        });
+    });
+
+    // Add intersection observer for lazy loading
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            img.dataset.src = img.src;
+            img.src = '';
+            img.classList.add('lazy');
+            imageObserver.observe(img);
+        });
+    }
+});
+
+</script>
+
+
+</body>
+
+</html>
