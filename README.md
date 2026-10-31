@@ -44,8 +44,7 @@ This website was crafted with a focus on responsive design, user engagement, and
 
 ## Usage
 
-***NOTE : ACCESS THIS LIVE SITE ON***    https://natashabellsevent.netlify.app/
-
+***NOTE : ACCESS THIS LIVE SITE ON***    https://atnatashabellsevents.onrender.com
 ### Clone Repository
 To use the project locally:
 ```bash
